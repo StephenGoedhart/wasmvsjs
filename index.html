@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script>
+        WebAssembly.instantiateStreaming(fetch('main.wasm'))
+        .then(obj => obj.instance.exports.main());    
+        </script>
+    </body>
+</html>
