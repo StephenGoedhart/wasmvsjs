@@ -22,6 +22,7 @@ header{
     width: 200px;
     height: 50px;
     margin-left: 20px;
+    
     color:white;
     font-size: 20px;
     
@@ -156,26 +157,71 @@ header{
 #main_nav{
     width: 1024px;
     height: 60px;
+    border-radius: 5px;
     background-color: white;
     box-shadow: grey 0 5px 5px;
 }
 
 .menu_section_container{
+    padding:1px;
     margin: auto;
-    width: 750px;
+    width: 900px;
     height: 55px;
 }
 .menu_section{
     float:left;
-    margin: 15px auto;
-    width: 250px;
-    height: 35px;
-    background-color: orange;
+    margin: 7px 25px;
+    width: 175px;
+    height: 40px;
 }
 
 #graph{
     width: 100%;
     height: 250px;
+    border-radius: 5px;
     background-color: white;
     box-shadow: grey 0px 5px 5px;
+}
+
+.select-css{
+    border-radius: 5px;
+    border: black 2px;
+    display: block;
+    font-size: 15px;
+    font-size: bold;
+    color: grey;
+    width: 100%;
+    border: none;
+    height: 35px;
+
+}
+
+.select-css::-ms-expand {
+    display: none;
+}
+.select-css:hover {
+    border-color: black;
+}
+.select-css:focus {
+    border-color: yellow;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222; 
+    outline: none;
+}
+.select-css option {
+    font-weight:normal;
+}
+
+#menu_start{
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+}
+
+#menu_start:hover{
+    background-color: lightgrey;
 }

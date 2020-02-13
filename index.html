@@ -19,11 +19,28 @@
             </div>
             <div class="vertical-spacer"></div>
             <div id="main_nav">
-          
+
                 <div class="menu_section_container">
-                    <div class="menu_section"></div>
-                    <div class="menu_section"></div>
-                    <div class="menu_section"></div>
+                    <div class="menu_section">
+                        <select class="select-css" id="methods">
+                            <option value="factorial">factorial</option>
+                            <option value="fibonacci">fibonacci</option>
+                          </select>
+                    </div>
+                    <div class="menu_section">
+                           <input oninput="update_cycle_slider();updateChartLabelsCount();" style="width:100%; height: 20px" type="range" id="cycle_size" min="50" max="1000" value="50" step="50"/>
+                           <div>
+                                <span id="cycle_size_text" style="width:100%; height: 15px; text-align: center;">50</span> repetitions</div>
+    
+                    </div>
+                    <div class="menu_section">
+                        <input oninput="update_sample_slider()" style="width:100%; height: 20px" type="range" id="sample_size" min="3" max="40" value="40"/>
+                        <div>
+                            <span id="sample_size_text" style="width:100%; height: 15px; text-align: center;">40</span> samples</div>
+                 </div>
+                    <div class="menu_section">
+                    <button id="menu_start" onclick="start_both()"> START </button>
+                    </div>
                 </div>
 
             </div>
@@ -40,7 +57,7 @@
                     <div class="card_nav">
                         <ul>
                             <li>
-                                <button onclick="js_start_fibonacci()">RUN ISOLATED</button>
+                                <button onclick="js_start()">RUN ISOLATED</button>
                             </li>
                         </ul>
                     </div>
@@ -59,14 +76,14 @@
                 <div class="card" style="background-color:cornflowerblue; border-radius: 0 15px 15px 0;">
                     <div class="card_title">Web Assembly</div>
                     <div class="card_data" style="background-color:royalblue;">
-                        <div id="wasm_data">0</div>
+                        <label id="wasm_data">0</label>
                         <!--<div class="card_info" id="wasm_info">_</div>-->
                        
                     </div>
                     <div class="card_nav">
                         <ul>
                             <li>
-                                <button onclick="wasm_start_fibonacci()">RUN ISOLATED</button>
+                                <button onclick="wasm_start()">RUN ISOLATED</button>
                             </li>
                         </ul>
                     </div>
@@ -75,44 +92,71 @@
                 <!--<canvas id="wasmChart" width="400" height="400"></canvas>-->
             </div>
         </div>
-    </body>
+        <script>
+          
+        </script>
+
     <!--<script type="application/javascript" src="./wasm_functions/wasm_fibonacci.wasm"></script>-->
     <!-- <script type="application/javascript" src="wasm_factorial.js"></script> -->
     <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script type="application/javascript" src="chart.js"></script>
     <script>
 
-        dataset = [] //share this dataset with wasm file
-        for(i = 0; i < 1000; i++){
-            dataset.push(Math.round(Math.random() * 10))
+        var sample_size_text = document.getElementById('sample_size_text');
+        var sample_size = document.getElementById('sample_size');
+        var cycle_size_text = document.getElementById('cycle_size_text');
+        var cycle_size = document.getElementById('cycle_size');
+        
+        update_sample_slider = () => {
+            sample_size_text.innerHTML = sample_size.value;
         }
- 
-        js_start_fibonacci = () => {
+        
+        update_cycle_slider = () => {
+            cycle_size_text.innerHTML = cycle_size.value;
+        }
+
+        start_both = () => {
+            js_start(); 
+            wasm_start();
+        }
+
+        js_start = () => {
             data_element = document.getElementById('js_data');
             info_element = document.getElementById('js_info')
             data_element.innerHTML = "...";
             info_element.innerHTML = "___";
 
+            var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
+
             js_worker = new Worker('./javascript_functions/fibonacci.js');
+            js_worker.postMessage(d);
             js_worker.onmessage = (event) => {
-                data_element.innerHTML = event.data.time + " ms";
+                var time = event.data.time;
+                data_element.innerHTML = time;
                 info_element.innerHTML = event.data.output;
-                setTimeout(()=>{ js_worker.close()}, 1000);
+                updateJSChart(event.data.cycle, time)
             } 
         }
         
-        wasm_start_fibonacci = () => {
+        wasm_start = () => {
             data_element = document.getElementById('wasm_data');
             info_element = document.getElementById('wasm_info');
             data_element.innerHTML = "...";
             info_element.innerHTML = "___";
 
+            var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
+           
             wasm_worker = new Worker('./wasm_functions/load_wasm_fibonacci.js');
+
+            wasm_worker.postMessage(d);
             wasm_worker.onmessage = (event) => {
-                data_element.innerHTML = event.data.cycle + " | " + event.data.time + " ms";
+                if(event.data.done){wasm_worker.terminate();}
+                data_element.innerHTML = event.data.time;
                 info_element.innerHTML = event.data.output;
+                updateWasmChart(event.data.cycle, event.data.time)
             }
         }
 
     </script>
+        </body>
 </html>
