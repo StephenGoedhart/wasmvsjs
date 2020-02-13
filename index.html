@@ -1,10 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
     <body>
-        <script>
-        WebAssembly.instantiateStreaming(fetch('main.wasm'))
-        .then(obj => obj.instance.exports.main());    
-        </script>
+        <header>
+                <div id="logo">Javascript vs WebAssembly</div>
+        </header>
+        <div id="content">
+            <div class="vertical-spacer"></div>
+            <div id="title">
+                Javascript vs Web Assembly
+            </div>
+            <div id="graph">
+                <canvas id="chart" width="1080px" height="250px"></canvas>
+            </div>
+            <div class="vertical-spacer"></div>
+            <div id="main_nav">
+          
+                <div class="menu_section_container">
+                    <div class="menu_section"></div>
+                    <div class="menu_section"></div>
+                    <div class="menu_section"></div>
+                </div>
+
+            </div>
+            <div class="vertical-spacer"></div>
+            <div id="div_js">
+                
+                <div class="card" style="background-color:yellowgreen">
+                    <div class="card_title">Javascript</div>
+                    <div class="card_data" style="background-color:mediumseagreen">
+                        <div id="js_data">0</div>
+                      
+                        <!--<div class="card_info" id="js_info">_</div>-->
+                    </div>
+                    <div class="card_nav">
+                        <ul>
+                            <li>
+                                <button onclick="js_start_fibonacci()">RUN ISOLATED</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="output">
+                    <textarea class="text_area" id="js_info"></textarea>
+                </div>
+            </div>
+            
+
+            <div id="div_wasm">
+                <div class="output">
+                    <textarea class="text_area" id="wasm_info"></textarea>
+                </div>
+
+                <div class="card" style="background-color:cornflowerblue; border-radius: 0 15px 15px 0;">
+                    <div class="card_title">Web Assembly</div>
+                    <div class="card_data" style="background-color:royalblue;">
+                        <div id="wasm_data">0</div>
+                        <!--<div class="card_info" id="wasm_info">_</div>-->
+                       
+                    </div>
+                    <div class="card_nav">
+                        <ul>
+                            <li>
+                                <button onclick="wasm_start_fibonacci()">RUN ISOLATED</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+           
+                <!--<canvas id="wasmChart" width="400" height="400"></canvas>-->
+            </div>
+        </div>
     </body>
+    <!--<script type="application/javascript" src="./wasm_functions/wasm_fibonacci.wasm"></script>-->
+    <!-- <script type="application/javascript" src="wasm_factorial.js"></script> -->
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script type="application/javascript" src="chart.js"></script>
+    <script>
+
+        dataset = [] //share this dataset with wasm file
+        for(i = 0; i < 1000; i++){
+            dataset.push(Math.round(Math.random() * 10))
+        }
+ 
+        js_start_fibonacci = () => {
+            data_element = document.getElementById('js_data');
+            info_element = document.getElementById('js_info')
+            data_element.innerHTML = "...";
+            info_element.innerHTML = "___";
+
+            js_worker = new Worker('./javascript_functions/fibonacci.js');
+            js_worker.onmessage = (event) => {
+                data_element.innerHTML = event.data.time + " ms";
+                info_element.innerHTML = event.data.output;
+                setTimeout(()=>{ js_worker.close()}, 1000);
+            } 
+        }
+        
+        wasm_start_fibonacci = () => {
+            data_element = document.getElementById('wasm_data');
+            info_element = document.getElementById('wasm_info');
+            data_element.innerHTML = "...";
+            info_element.innerHTML = "___";
+
+            wasm_worker = new Worker('./wasm_functions/load_wasm_fibonacci.js');
+            wasm_worker.onmessage = (event) => {
+                data_element.innerHTML = event.data.cycle + " | " + event.data.time + " ms";
+                info_element.innerHTML = event.data.output;
+            }
+        }
+
+    </script>
 </html>
