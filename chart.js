@@ -10,13 +10,13 @@ var myChart = new Chart(ctx, {
             label: 'JS',
             data: [],
             borderWidth: 2,
-            borderColor: 'yellowgreen',
+            borderColor: 'rgba(245, 221, 66, 1)',
             backgroundColor: 'rgba(0,0,0,0'
         },{
             label: 'WASM',
             data: [],
             borderWidth: 2,
-            borderColor: 'cornflowerblue',
+            borderColor: 'rgba(116, 19, 242,1)',
             backgroundColor: 'rgba(0,0,0,0'
         }]
     },
@@ -28,7 +28,7 @@ var myChart = new Chart(ctx, {
                     labelString: 'cycle'
                   },
                   ticks: {
-                    beginAtZero: false,
+                    beginAtZero: true,
                      max:100,
                 }
             }],
@@ -47,13 +47,12 @@ var myChart = new Chart(ctx, {
 });
 
 updateChartLabelsCount = () => {
-    var cycle_size = document.getElementById('cycle_size').value;
+    var cycle_size = parseInt(document.getElementById('cycle_size').value);
     new_data = []
 
-    for(i = 0; i <= parseInt(cycle_size); i++){
+    for(i = 0; i <= cycle_size; i++){
         new_data.push(i);
     }
-    console.log(cycle_size);
     myChart.data.labels = new_data;
     myChart.update();
     
@@ -72,4 +71,10 @@ updateWasmChart = (cycle, value) => {
     }
     myChart.config.data.datasets[1].data.push(value);
     myChart.update();
+}
+
+resetChart = () => {
+    myChart.data.labels = [];
+    myChart.config.data.datasets[0].data = [];
+    myChart.config.data.datasets[1].data = [];
 }

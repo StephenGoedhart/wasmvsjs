@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+
         <header>
                 <div id="logo">Javascript vs WebAssembly</div>
         </header>
@@ -14,6 +14,7 @@
             <div id="title">
                 Javascript vs Web Assembly
             </div>
+            <div class="vertical-spacer"></div>
             <div id="graph">
                 <canvas id="chart" width="1080px" height="250px"></canvas>
             </div>
@@ -28,15 +29,15 @@
                           </select>
                     </div>
                     <div class="menu_section">
-                           <input oninput="update_cycle_slider();updateChartLabelsCount();" style="width:100%; height: 20px" type="range" id="cycle_size" min="50" max="1000" value="50" step="50"/>
+                           <input oninput="update_cycle_slider();updateChartLabelsCount();" style="width:100%; height: 20px" type="range" id="cycle_size" min="10" max="100" step="10"/>
                            <div>
-                                <span id="cycle_size_text" style="width:100%; height: 15px; text-align: center;">50</span> repetitions</div>
+                                <span id="cycle_size_text" style="width:100%; height: 15px; text-align: center;">0</span> repetitions</div>
     
                     </div>
                     <div class="menu_section">
-                        <input oninput="update_sample_slider()" style="width:100%; height: 20px" type="range" id="sample_size" min="3" max="40" value="40"/>
+                        <input oninput="update_sample_slider()" style="width:100%; height: 20px" type="range" id="sample_size" min="3" max="40"/>
                         <div>
-                            <span id="sample_size_text" style="width:100%; height: 15px; text-align: center;">40</span> samples</div>
+                            <span id="sample_size_text" style="width:100%; height: 15px; text-align: center;">0</span> digits</div>
                  </div>
                     <div class="menu_section">
                     <button id="menu_start" onclick="start_both()"> START </button>
@@ -47,12 +48,10 @@
             <div class="vertical-spacer"></div>
             <div id="div_js">
                 
-                <div class="card" style="background-color:yellowgreen">
+                <div class="card" style="background-color:rgba(245, 221, 66, 1); border-radius: 15px 15px 0 0;">
                     <div class="card_title">Javascript</div>
-                    <div class="card_data" style="background-color:mediumseagreen">
+                    <div class="card_data" style="background-color:rgba(232, 208, 26, 1)">
                         <div id="js_data">0</div>
-                      
-                        <!--<div class="card_info" id="js_info">_</div>-->
                     </div>
                     <div class="card_nav">
                         <ul>
@@ -63,33 +62,83 @@
                     </div>
                 </div>
                 <div class="output">
+                    <div class="output_title">JS Output:</div>
                     <textarea class="text_area" id="js_info"></textarea>
                 </div>
             </div>
             
 
             <div id="div_wasm">
-                <div class="output">
-                    <textarea class="text_area" id="wasm_info"></textarea>
-                </div>
-
-                <div class="card" style="background-color:cornflowerblue; border-radius: 0 15px 15px 0;">
+                <div class="card" style="background-color:rgba(116, 19, 242,1); border-radius: 15px 15px 0 0;">
                     <div class="card_title">Web Assembly</div>
-                    <div class="card_data" style="background-color:royalblue;">
-                        <label id="wasm_data">0</label>
-                        <!--<div class="card_info" id="wasm_info">_</div>-->
-                       
+                    <div class="card_data" style="background-color:rgba(101, 21, 212, 1);">
+                        <div class="left-data">
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="tooltip">
+                                    <span class="icon">Total :</span>
+                                    <span id="wasm_total_time">0</span>
+                                    <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="tooltip">
+                                    <span class="icon">Best:</span>
+                                    <span id="wasm_best_time">0</span>
+                                    <span class="tooltiptext">The quickest time it took to execute a single repetition.</span>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="tooltip">
+                                    <span class="icon">x̄ :</span>
+                                    <span id="wasm_mean">0</span>
+                                    <span class="tooltiptext">The mean of the sample.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="right-data">
+                        <div class="small_vertical_spacer"></div>
+                        <div class="data_row">
+                            <div class="tooltip">
+                                <span class="icon">sample:</span>
+                                <span id="wasm_sample_time">0</span>
+                                <span class="tooltiptext">The time it takes to run through a sample per repitition.</span>
+                            </div>
+                        </div>
+                        <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="tooltip">
+                                    <span class="icon">Worst: </span>
+                                    <span id="wasm_worst_time">0</span>
+                                    <span class="tooltiptext">The worst time it took to execute a single repetition.</span>
+                                </div>
+                            </div>
+                        <div class="small_vertical_spacer"></div>
+                        <div class="data_row">
+                            <div class="tooltip">
+                                <span class="icon">x̃ :</span>
+                                <span id="wasm_median">0</span>
+                                <span class="tooltiptext">The median of the results.</span>
+                            </div>
+                        </div>
+                    </div>
+                        
+                        
                     </div>
                     <div class="card_nav">
                         <ul>
                             <li>
-                                <button onclick="wasm_start()">RUN ISOLATED</button>
+                                <button class="run_isolated" onclick="wasm_start()"><span class="fa fa-play fa-2x"></span></button>
                             </li>
                         </ul>
                     </div>
                 </div>
-           
-                <!--<canvas id="wasmChart" width="400" height="400"></canvas>-->
+                <div class="output">
+                    <div class="output_title">WASM Output:</div>
+                    <textarea class="text_area" id="wasm_info"></textarea>
+                </div>
             </div>
         </div>
         <script>
@@ -101,59 +150,105 @@
     <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script type="application/javascript" src="chart.js"></script>
     <script>
+        
+        var js_worker;
+        var wasm_worker;
+        var started = false;
+         var wasm_started = false;
+         var js_started = false;
+        // menu 
+        const sample_size_text = document.getElementById('sample_size_text');
+        const sample_size = document.getElementById('sample_size');
+        const cycle_size_text = document.getElementById('cycle_size_text');
+        const cycle_size = document.getElementById('cycle_size');
+        
+        // js: info, data
+        const js_data_element = document.getElementById('js_data');
+        const js_info_element = document.getElementById('js_info')
 
-        var sample_size_text = document.getElementById('sample_size_text');
-        var sample_size = document.getElementById('sample_size');
-        var cycle_size_text = document.getElementById('cycle_size_text');
-        var cycle_size = document.getElementById('cycle_size');
+        // wasm: info, data
+        const wasm_sample_time_element = document.getElementById('wasm_sample_time');
+        const wasm_total_time__element = document.getElementById('wasm_total_time');
+        const wasm_best_time_element = document.getElementById('wasm_best_time');
+        const wasm_worst_time__element = document.getElementById('wasm_wors_time');
+        const wasm_mean_element = document.getElementById('wasm_mean');
+        const wasm_median_element = document.getElementById('wasm_median');
+        const wasm_info_element = document.getElementById('wasm_info');
         
         update_sample_slider = () => {
+          
             sample_size_text.innerHTML = sample_size.value;
         }
         
         update_cycle_slider = () => {
             cycle_size_text.innerHTML = cycle_size.value;
+            console.log(cycle_size.value);
+        }
+        reset = () => {
+            resetChart();
         }
 
         start_both = () => {
-            js_start(); 
-            wasm_start();
+            if(!started){
+                data_element = document.getElementById('js_data');
+                js_start(); 
+                wasm_start();
+               
+            } else{
+                js_worker.terminate();
+                wasm_worker.terminate();
+                reset();
+
+            }
+            started = started ? false : true; // toggle started
         }
 
         js_start = () => {
-            data_element = document.getElementById('js_data');
-            info_element = document.getElementById('js_info')
-            data_element.innerHTML = "...";
-            info_element.innerHTML = "___";
+            js_data_element.innerHTML = "...";
+            js_info_element.innerHTML = "___";
 
             var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
 
             js_worker = new Worker('./javascript_functions/fibonacci.js');
             js_worker.postMessage(d);
             js_worker.onmessage = (event) => {
-                var time = event.data.time;
-                data_element.innerHTML = time;
-                info_element.innerHTML = event.data.output;
-                updateJSChart(event.data.cycle, time)
+                
+                var js_time = event.data.time;
+                js_data_element.innerHTML = js_time;
+                js_info_element.innerHTML = event.data.output;
+                updateJSChart(event.data.cycle, js_time)
             } 
+        }
+        wasm_timer_start = () => {
+            start_time = Date.now();
+            var wasm_timer_interval = setInterval(() => {
+                if(!wasm_started){clearInterval(wasm_timer_interval)}
+                current_wasm_time = Date.now() - start_time;
+                wasm_total_time__element.innerHTML = current_wasm_time;
+            }, 100);
         }
         
         wasm_start = () => {
-            data_element = document.getElementById('wasm_data');
-            info_element = document.getElementById('wasm_info');
-            data_element.innerHTML = "...";
-            info_element.innerHTML = "___";
+            wasm_started = true;
+            wasm_timer_start();
+            wasm_sample_time_element.innerHTML = "";
+            wasm_info_element.innerHTML = "";
 
             var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
-           
+
             wasm_worker = new Worker('./wasm_functions/load_wasm_fibonacci.js');
 
             wasm_worker.postMessage(d);
             wasm_worker.onmessage = (event) => {
-                if(event.data.done){wasm_worker.terminate();}
-                data_element.innerHTML = event.data.time;
-                info_element.innerHTML = event.data.output;
-                updateWasmChart(event.data.cycle, event.data.time)
+                
+                var wasm_time = event.data.time;
+                if(event.data.done){
+                    wasm_started = false;
+                    wasm_worker.terminate();
+                }
+                wasm_sample_time_element.innerHTML = wasm_time;
+                wasm_info_element.innerHTML = event.data.output;
+                updateWasmChart(event.data.cycle, wasm_time)
             }
         }
 

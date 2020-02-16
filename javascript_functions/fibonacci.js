@@ -5,7 +5,7 @@
       return fibonacci(x - 1) + fibonacci(x - 2);
   }
   
-  var data = {
+  var js_data = {
     cycle: 0, // amount of repetitions
     output: 0, // output per repetition
     time: 0,  // time of repetition execution
@@ -22,27 +22,28 @@ js_fibonacci = (sample_size) => {
     }
     var t1 = performance.now(); // after execution time
 
-    data.output = result; // set output prop
-    data.time = t1 - t0; // set time prop
+    js_data.output = result; // set output prop
+    js_data.time = t1 - t0; // set time prop
 }
 
 
 // wasm function, n cycles, sequence length
 js_fibonacci_cycle = (cycle_size, sample_size) => {
-    data.cycle = 0; // reset cycle counter
-    data.output = 0; // reset output tracker
-    data.time = 0 // reset time calculation
-    data.done = false; // reset done parameter
+    js_data.cycle = 0; // reset cycle counter
+    js_data.output = 0; // reset output tracker
+    js_data.time = 0 // reset time calculation
+    js_data.done = false; // reset done parameter
 
     var interval = setInterval(() => {
-        if(data.cycle >= cycle_size){
+        js_data.cycle += 1;
+        if(js_data.cycle > cycle_size){
             clearInterval(interval);
-            data.done = true;
+            js_data.done = true;
         }
 
-        data.cycle += 1; // keep track of cycle
+         // keep track of cycle
         js_fibonacci(sample_size); // execute func
-        postMessage(data); // send data to mainthread
+        postMessage(js_data); // send data to mainthread
 
     }, 10);
 }
