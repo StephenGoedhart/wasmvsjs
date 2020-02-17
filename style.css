@@ -239,7 +239,7 @@ header{
 
 .left-data{
     float: left;
-    width: 250px;
+    width: 33%;
     height: 100px;
 }
 .right-data{
@@ -289,18 +289,47 @@ header{
     width: 100%;
 }
 
-.run_isolated{
+.run_isolated_wasm{
     margin: 5px auto;
     width: 45px;
     height: 45px;
     border-radius: 50%;
     border: none;
-    /* color: rgba(116, 19, 242,1); */
     color: white;
     background-color: rgba(101, 21, 212, 1);
 }
 
-.run_isolated:hover{
+.run_isolated_wasm:hover{
     color: black;
     background-color: white;
+}
+
+.run_isolated_js{
+    margin: 5px auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    background-color: rgba(232, 208, 26, 1);
+}
+
+.run_isolated_js:hover{
+    color: black;
+    background-color: white;
+}
+
+
+.data_row_left{
+    width: 50%;
+    height: inherit;
+    float: left;
+    text-align: right;
+}
+
+.data_row_right{
+    width: 50%;
+    height: inherit;
+    float: right;
+    text-align: left;
 }

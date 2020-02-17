@@ -23,13 +23,15 @@
 
                 <div class="menu_section_container">
                     <div class="menu_section">
-                        <select class="select-css" id="methods">
-                            <option value="factorial">factorial</option>
+                        <select class="select-css" id="methods" onchange="onMethodSwitch()">
+                            <option value="select">select algorithm...</option>
                             <option value="fibonacci">fibonacci</option>
+                            <option value="triangular_number">triangular numbers</option>
+                            
                           </select>
                     </div>
                     <div class="menu_section">
-                           <input oninput="update_cycle_slider();updateChartLabelsCount();" style="width:100%; height: 20px" type="range" id="cycle_size" min="10" max="100" step="10"/>
+                           <input oninput="update_cycle_slider();updateChartLabelsCount();" style="width:100%; height: 20px" type="range" id="cycle_size" min="1" max="100" step="1"/>
                            <div>
                                 <span id="cycle_size_text" style="width:100%; height: 15px; text-align: center;">0</span> repetitions</div>
     
@@ -46,17 +48,157 @@
 
             </div>
             <div class="vertical-spacer"></div>
+            <!-- JS DATA -->
             <div id="div_js">
-                
                 <div class="card" style="background-color:rgba(245, 221, 66, 1); border-radius: 15px 15px 0 0;">
                     <div class="card_title">Javascript</div>
                     <div class="card_data" style="background-color:rgba(232, 208, 26, 1)">
-                        <div id="js_data">0</div>
+                        <div class="left-data">
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="fa fa-clock"></span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_total_time">0</span>
+                                        <span class="tooltiptext">The total time it took jsto execute the task.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="fa fa-thumbs-up"></span>
+                                        </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_best_time">0</span>
+                                        <span class="tooltiptext">The quickest time it took to execute a single batch.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">x̄</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_mean">0</span>
+                                        <span class="tooltiptext">The mean of the sample.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="left-data">
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="fa fa-business-time"></span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_sample_time">0</span>
+                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="fa fa-thumbs-down"></span>
+                                        </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_worst_time">0</span>
+                                        <span class="tooltiptext">The maximum time it took to execute a single repetition.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">x̃</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_median">0</span>
+                                        <span class="tooltiptext">The mean of the sample.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="left-data">
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="icon">s</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_sd">0</span>
+                                        <span class="tooltiptext">The sample standard deviation.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">s2</span>
+                                        </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_variance">0</span>
+                                        <span class="tooltiptext">Variance</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">T</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_t_score">0</span>
+                                        <span class="tooltiptext">The t score.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card_nav">
                         <ul>
                             <li>
-                                <button onclick="js_start()">RUN ISOLATED</button>
+                                <button class="run_isolated_js" onclick="js_start()"><span class="fa fa-play fa-2x"></span></button>
                             </li>
                         </ul>
                     </div>
@@ -67,7 +209,7 @@
                 </div>
             </div>
             
-
+            <!-- WASM DATA -->
             <div id="div_wasm">
                 <div class="card" style="background-color:rgba(116, 19, 242,1); border-radius: 15px 15px 0 0;">
                     <div class="card_title">Web Assembly</div>
@@ -75,62 +217,150 @@
                         <div class="left-data">
                             <div class="small_vertical_spacer"></div>
                             <div class="data_row">
-                                <div class="tooltip">
-                                    <span class="icon">Total :</span>
-                                    <span id="wasm_total_time">0</span>
-                                    <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="fa fa-clock"></span>
+                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_total_time">0</span>
+                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="small_vertical_spacer"></div>
                             <div class="data_row">
-                                <div class="tooltip">
-                                    <span class="icon">Best:</span>
-                                    <span id="wasm_best_time">0</span>
-                                    <span class="tooltiptext">The quickest time it took to execute a single repetition.</span>
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="fa fa-thumbs-up"></span>
+                                        </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_best_time">0</span>
+                                        <span class="tooltiptext">The quickest time it took to execute a single repetition.</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="small_vertical_spacer"></div>
                             <div class="data_row">
-                                <div class="tooltip">
-                                    <span class="icon">x̄ :</span>
-                                    <span id="wasm_mean">0</span>
-                                    <span class="tooltiptext">The mean of the sample.</span>
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">x̄</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_mean">0</span>
+                                        <span class="tooltiptext">The mean of the sample.</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    <div class="right-data">
+                    <div class="left-data">
                         <div class="small_vertical_spacer"></div>
                         <div class="data_row">
-                            <div class="tooltip">
-                                <span class="icon">sample:</span>
-                                <span id="wasm_sample_time">0</span>
-                                <span class="tooltiptext">The time it takes to run through a sample per repitition.</span>
+                            <div class="data_row_left">
+                                <div class="tooltip">
+                                    <span class="fa fa-business-time"></span>
+                                </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_sample_time">0</span>
+                                    <span class="tooltiptext">The time it takes to run through a sample per repitition in milliseconds.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="small_vertical_spacer"></div>
                             <div class="data_row">
-                                <div class="tooltip">
-                                    <span class="icon">Worst: </span>
-                                    <span id="wasm_worst_time">0</span>
-                                    <span class="tooltiptext">The worst time it took to execute a single repetition.</span>
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="fa fa-thumbs-down"></span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_worst_time">0</span>
+                                        <span class="tooltiptext">The worst time it took to execute a single repetition in milliseconds.</span>
+                                    </div>
                                 </div>
                             </div>
                         <div class="small_vertical_spacer"></div>
                         <div class="data_row">
+                            <div class="data_row_left">
                             <div class="tooltip">
-                                <span class="icon">x̃ :</span>
-                                <span id="wasm_median">0</span>
-                                <span class="tooltiptext">The median of the results.</span>
+                                <span class="icon">x̃</span>
+                            </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_median">0</span>
+                                    <span class="tooltiptext">The median of the results.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                        
-                        
+                    <div class="left-data">
+                        <div class="small_vertical_spacer"></div>
+                        <div class="data_row">
+                            <div class="data_row_left">
+                                <div class="tooltip">
+                                    <span class="icon">s</span>
+                                </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_sd">0</span>
+                                    <span class="tooltiptext">Sample Standard Deviation. sqrt(sum(xi - mean) / (n - 1))</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="icon">s2</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_variance">0</span>
+                                        <span class="tooltiptext">The variance. (Sample Standard Deviation squared)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="small_vertical_spacer"></div>
+                        <div class="data_row">
+                            <div class="data_row_left">
+                            <div class="tooltip">
+                                <span class="icon">T</span>
+                            </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_t_score">0</span>
+                                    <span class="tooltiptext">The T score. A score below 0.05 shows that the difference is significant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     <div class="card_nav">
                         <ul>
                             <li>
-                                <button class="run_isolated" onclick="wasm_start()"><span class="fa fa-play fa-2x"></span></button>
+                                <button class="run_isolated_wasm" onclick="wasm_start()"><span class="fa fa-play fa-2x"></span></button>
                             </li>
                         </ul>
                     </div>
@@ -149,32 +379,77 @@
     <!-- <script type="application/javascript" src="wasm_factorial.js"></script> -->
     <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script type="application/javascript" src="chart.js"></script>
+    <script type="application/javascript" src="statistical_functions.js"></script>
     <script>
-        
+
         var js_worker;
         var wasm_worker;
+
         var started = false;
-         var wasm_started = false;
-         var js_started = false;
-        // menu 
+
+        var wasm_started = false;
+        var js_started = false;
+
+        var method_js = "";
+        var method_wasm = "";
+
+        var methods_enum_js = {
+            fibonacci: "fibonacci.js",
+            triangular_number: "triangular_number.js"
+        }
+
+        var methods_enum_wasm = {
+            fibonacci: "load_wasm_fibonacci.js",
+            triangular_number: "load_wasm_triangular_number.js"
+        }
+
+        // menu data
+        const chosen_method = document.getElementById('methods');
         const sample_size_text = document.getElementById('sample_size_text');
         const sample_size = document.getElementById('sample_size');
         const cycle_size_text = document.getElementById('cycle_size_text');
         const cycle_size = document.getElementById('cycle_size');
-        
+
         // js: info, data
-        const js_data_element = document.getElementById('js_data');
+        const js_total_time_element = document.getElementById('js_total_time');
+        const js_sample_time_element = document.getElementById('js_sample_time');
+        const js_best_time_element = document.getElementById('js_best_time');
+        const js_worst_time_element = document.getElementById('js_worst_time');
+        const js_mean_element = document.getElementById('js_mean');
+        const js_median_element = document.getElementById('js_median');
+        const js_sd_element = document.getElementById('js_sd');
+        const js_variance_element = document.getElementById('js_variance');
+        const js_t_score = document.getElementById('js_t_score');
         const js_info_element = document.getElementById('js_info')
 
         // wasm: info, data
         const wasm_sample_time_element = document.getElementById('wasm_sample_time');
-        const wasm_total_time__element = document.getElementById('wasm_total_time');
+        const wasm_total_time_element = document.getElementById('wasm_total_time');
         const wasm_best_time_element = document.getElementById('wasm_best_time');
-        const wasm_worst_time__element = document.getElementById('wasm_wors_time');
+        const wasm_worst_time_element = document.getElementById('wasm_worst_time');
         const wasm_mean_element = document.getElementById('wasm_mean');
         const wasm_median_element = document.getElementById('wasm_median');
+        const wasm_sd_element = document.getElementById('wasm_sd');
+        const wasm_variance_element = document.getElementById('wasm_variance');
+        const wasm_t_score = document.getElementById('wasm_t_score');
         const wasm_info_element = document.getElementById('wasm_info');
         
+        onMethodSwitch = () => {
+            switch(chosen_method.value){
+                case 'fibonacci': 
+                    method_js = methods_enum_js.fibonacci;
+                    method_wasm = methods_enum_wasm.fibonacci;
+                    break;
+                case 'triangular_number': 
+                    method_js = methods_enum_js.triangular_number;
+                    method_wasm = methods_enum_wasm.triangular_number;
+                break;
+            }
+            console.log('switched to:', method_js, " / ", method_wasm);
+        }
+
+ 
+
         update_sample_slider = () => {
           
             sample_size_text.innerHTML = sample_size.value;
@@ -182,7 +457,6 @@
         
         update_cycle_slider = () => {
             cycle_size_text.innerHTML = cycle_size.value;
-            console.log(cycle_size.value);
         }
         reset = () => {
             resetChart();
@@ -198,59 +472,95 @@
                 js_worker.terminate();
                 wasm_worker.terminate();
                 reset();
-
             }
             started = started ? false : true; // toggle started
         }
 
+        js_timer_start = () => {
+            js_start_time = Date.now();
+            var js_timer_interval = setInterval(() => {
+                if(!wasm_started){clearInterval(js_timer_interval)}
+                current_js_time = Date.now() - js_start_time;
+                js_total_time_element.innerHTML = current_js_time;
+            }, 100);
+        }
+
         js_start = () => {
-            js_data_element.innerHTML = "...";
-            js_info_element.innerHTML = "___";
+            js_started = true;
+            js_timer_start();
 
             var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
 
-            js_worker = new Worker('./javascript_functions/fibonacci.js');
+            js_worker = new Worker('./javascript_functions/' + method_js);
             js_worker.postMessage(d);
             js_worker.onmessage = (event) => {
-                
+             
+                if(event.data.done){
+                    js_started = false;
+                    js_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;
+                    js_worst_time_element.innerHTML = Math.max.apply(null, myChart.config.data.datasets[0].data);
+                    
+                    var js_mean = Math.round(sf_mean(myChart.config.data.datasets[0].data) * 100) / 100;
+                    var js_variance = Math.round(sf_variance(myChart.config.data.datasets[0].data, js_mean) * 100000) / 100000;
+                    
+                    js_mean_element.innerHTML = js_mean; // seperate devisions based on function. / 100 = original value; / 1000 = micro seconds to miliseconds conversion
+                    js_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[0].data) * 100) / 100;
+                    js_sd_element.innerHTML =  Math.round(Math.sqrt(js_variance) * 100000) / 100000// round on 2 numbers behind comma
+                    js_variance_element.innerHTML = js_variance;
+                    js_worker.terminate();
+                }
+
                 var js_time = event.data.time;
-                js_data_element.innerHTML = js_time;
+                js_sample_time_element.innerHTML = js_time;
                 js_info_element.innerHTML = event.data.output;
                 updateJSChart(event.data.cycle, js_time)
             } 
         }
         wasm_timer_start = () => {
-            start_time = Date.now();
+            wasm_start_time = Date.now();
             var wasm_timer_interval = setInterval(() => {
                 if(!wasm_started){clearInterval(wasm_timer_interval)}
-                current_wasm_time = Date.now() - start_time;
-                wasm_total_time__element.innerHTML = current_wasm_time;
+                current_wasm_time = Date.now() - wasm_start_time;
+                wasm_total_time_element.innerHTML = current_wasm_time;
             }, 100);
         }
         
         wasm_start = () => {
             wasm_started = true;
             wasm_timer_start();
-            wasm_sample_time_element.innerHTML = "";
-            wasm_info_element.innerHTML = "";
 
             var d = {cycle_size: parseInt(cycle_size.value), sample_size: parseInt(sample_size.value)}
 
-            wasm_worker = new Worker('./wasm_functions/load_wasm_fibonacci.js');
-
+            wasm_worker = new Worker('./wasm_functions/' + method_wasm);
             wasm_worker.postMessage(d);
-            wasm_worker.onmessage = (event) => {
-                
-                var wasm_time = event.data.time;
+            wasm_worker.onmessage = (event) => {  
+               
                 if(event.data.done){
                     wasm_started = false;
+                    wasm_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[1].data) * 100) / 100;
+                    wasm_worst_time_element.innerHTML = Math.max.apply(null, myChart.config.data.datasets[1].data);
+                    
+                    var wasm_mean = Math.round(sf_mean(myChart.config.data.datasets[1].data) * 100) / 100;
+                    var wasm_variance = Math.round(sf_variance(myChart.config.data.datasets[1].data, wasm_mean) * 100000) / 100000;
+                   
+                    wasm_mean_element.innerHTML = wasm_mean; // seperate devisions based on function. / 100 = original value; / 1000 = micro seconds to miliseconds conversion
+                    wasm_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[1].data) * 100) / 100;
+                    wasm_sd_element.innerHTML =  Math.round(Math.sqrt(wasm_variance) * 100000) / 100000// round on 2 numbers behind comma
+                    wasm_variance_element.innerHTML = wasm_variance;
                     wasm_worker.terminate();
                 }
+
+                var wasm_time = event.data.time;
                 wasm_sample_time_element.innerHTML = wasm_time;
                 wasm_info_element.innerHTML = event.data.output;
                 updateWasmChart(event.data.cycle, wasm_time)
             }
+
+          
         }
+
+          // On init
+          onMethodSwitch(); // call on init
 
     </script>
         </body>

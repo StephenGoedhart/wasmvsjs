@@ -1,11 +1,12 @@
-
-  // double recusion
-  fibonacci = (x) => {
-      if (x === 1) return 1;
-      if (x === 2) return 1;
-      return fibonacci(x - 1) + fibonacci(x - 2);
+triangular_number = (x) =>{
+    sum = 0;
+    for(i = 1; i < x; i++){
+      sum = sum + i;
+    }
+    return sum;
   }
-  
+
+
   var js_data = {
     cycle: 0, // amount of repetitions
     output: 0, // output per repetition
@@ -14,11 +15,11 @@
 }
 
 // wasm fibonacci function, sequence length
-js_fibonacci = (sample_size) => {
+js_triangular_number = (sample_size) => {
     var t0 = performance.now(); // initial time
     result = []
     for(i = 1; i <= sample_size; i++){ // execute func for a couple integers
-        var r = fibonacci(i); // wasm function
+        var r = triangular_number(i); // wasm function
         result.push(r); // push res to array
     }
     var t1 = performance.now(); // after execution time
@@ -28,7 +29,7 @@ js_fibonacci = (sample_size) => {
 }
 
 // wasm function, n cycles, sequence length
-js_fibonacci_cycle = (cycle_size, sample_size) => {
+js_triangular_number_cycle = (cycle_size, sample_size) => {
    
     js_data.cycle = 0; // reset cycle counter
     js_data.output = 0; // reset output tracker
@@ -43,7 +44,7 @@ js_fibonacci_cycle = (cycle_size, sample_size) => {
             js_data.done = true;
         }
 
-        js_fibonacci(sample_size); // execute func
+        js_triangular_number(sample_size); // execute func
         postMessage(js_data); // send data to mainthread
 
     }, 10);
@@ -52,5 +53,5 @@ js_fibonacci_cycle = (cycle_size, sample_size) => {
   onmessage = (event) => {
     var cycle_size = event.data.cycle_size;
     var sample_size = event.data.sample_size;
-    js_fibonacci_cycle(cycle_size, sample_size)
+    js_triangular_number_cycle(cycle_size, sample_size)
   }

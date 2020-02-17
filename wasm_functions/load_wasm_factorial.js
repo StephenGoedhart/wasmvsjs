@@ -15,7 +15,7 @@ const ENV = () => ({
 }
 
 // wasm fibonacci function, sequence length
-wasm_fibonacci = (func, sample_size) => {
+wasm_factorial = (func, sample_size) => {
     var t0 = performance.now(); // initial time
     result = []
     for(i = 1; i <= sample_size; i++){ // execute func for a couple integers
@@ -30,21 +30,22 @@ wasm_fibonacci = (func, sample_size) => {
 }
 
 // wasm function, n cycles, sequence length
-wasm_fibonacci_cycle = (func, cycle_size, sample_size) => {
+wasm_factorial_cycle = (func, cycle_size, sample_size) => {
 
     wasm_data.cycle = 0; // reset cycle counter
     wasm_data.output = 0; // reset output tracker
     wasm_data.time = 0; // reset time calculation
     wasm_data.done = false; // reset done parameter
 
-    var interval = setInterval(() => {
+    var wasm_interval = setInterval(() => {
         wasm_data.cycle += 1; // keep track of cycle
+        
         if(wasm_data.cycle > cycle_size){
-            clearInterval(interval);
+            clearInterval(wasm_interval);
             wasm_data.done = true;
         }
 
-        wasm_fibonacci(func, sample_size); // execute func
+        wasm_factorial(func, sample_size); // execute func
         postMessage(wasm_data); // send data to mainthread
     }, 10);
 }
@@ -55,9 +56,9 @@ onmessage = (event) => {
     var sample_size = event.data.sample_size;
 
     // load wasm, show first 10 fibonacci numbers
-    WebAssembly.instantiateStreaming(fetch('wasm_fibonacci.wasm'), ENV)
+    WebAssembly.instantiateStreaming(fetch('wasm_factorial.wasm'), ENV)
     .then(obj => {
-        wasm_fibonacci_cycle(obj.instance.exports.wasm_fibonacci, cycle_size, sample_size);
+        wasm_factorial_cycle(obj.instance.exports.wasm_factorial, cycle_size, sample_size);
     });
 }
 
