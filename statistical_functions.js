@@ -26,27 +26,23 @@ sf_variance = (arr, mean) => {
     return sd_sum != 0 ? sd_sum / (arr.length - 1) : 0
 }
 
-sf_t_test = (meanA, meanB, arrA, arrB) => {
-    sumA2 = 0
-    sumB2 = 0
-
-    arrA.forEach(elementA => {
-        sumA2 += elementA * elementA;
-    });
-
-    arrB.forEach(elementB => {
-        sumB2 += elementB * elementB;
-    });
-
-    sumA2sqrt = sumA2 * sumA2;
-    sumB2sqrt  = sumB2 * sumB2;
-
-    A = sumA2 - (sumA2sqrt / arrA.length);
-    B = sumB2 - (sumB2sqrt / arrB.length);
-
-    part1 = (A + B) / arrA.length + arrB.length - 2;
-    part2 = part1 * ((1 / arrA.length) + (1 / arrB.length))
-    part3 = (meanA - meanB) / Math.sqrt(part2);
-
-    return part3;
+sf_t_test = (squared_sumA, squared_sumB, sumA_squared, sumB_squared, meanA, meanB, nA, nB) => {
+    console.log("Step 1: Calculate the squared sum of A and B: ", squared_sumA, squared_sumB);
+    divA = sumA_squared / nA;
+    divB = sumB_squared / nB;
+    console.log("Step 2: devide " + sumA_squared + " by " + nA, " and " + sumB_squared + " by " + nB + ": ", divA, "|" ,divB);
+    calcA = squared_sumA - divA;
+    calcB = squared_sumB - divB;
+    console.log("Step 3: substract "+divA+" number from "+squared_sumA+" and " +divB + " from " + squared_sumB +" respectively:" , calcA, calcB);
+    ABN1 = (calcA + calcB) / (nA + nB - 2);
+    console.log("Step 4: devide the sum of " + calcA + " and " + calcB + " by " + nA + " + " + nB + " - 2:", ABN1);
+    fractal = 1/nA + 1/nB;
+    console.log("Step 5: Adding 1 / " + nA + " + 1 / "+nB+":", fractal);
+    ABN2 = ABN1 * fractal;
+    console.log("Step 6: Multiplying "+ ABN1 +" with " + fractal + ":", ABN2);
+    ABNSQRT = Math.sqrt(ABN2);
+    console.log("Step 7: Get the square root of " + ABN2 + ": ", ABNSQRT);
+    t = (meanA - meanB) / Math.sqrt(ABN2);
+    console.log("Step 8: The T score is " + ABN2 + " / (mean A " + meanA + " - " + "meanB" + meanB + "): ", t);
+    return t;
 }

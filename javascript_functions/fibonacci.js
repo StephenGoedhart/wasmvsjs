@@ -38,7 +38,7 @@ js_fibonacci_cycle = (cycle_size, sample_size) => {
     var js_interval = setInterval(() => {
         js_data.cycle += 1;
         
-        if(js_data.cycle > cycle_size){
+        if(js_data.cycle > cycle_size - 1){
             clearInterval(js_interval);
             js_data.done = true;
         }

@@ -5,7 +5,6 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-
         <header>
                 <div id="logo">Javascript vs WebAssembly</div>
         </header>
@@ -25,8 +24,10 @@
                     <div class="menu_section">
                         <select class="select-css" id="methods" onchange="onMethodSwitch()">
                             <option value="select">select algorithm...</option>
-                            <option value="fibonacci">fibonacci</option>
-                            <option value="triangular_number">triangular numbers</option>
+                            <option value="triangular_number">nth triangular numbers</option>
+                            <option value="prime">prime numbers</option>
+                            <option value="fibonacci">fibonacci numbers</option>
+                          
                             
                           </select>
                     </div>
@@ -65,7 +66,7 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_total_time">0</span>
-                                        <span class="tooltiptext">The total time it took jsto execute the task.</span>
+                                        <span class="tooltiptext">The total time it took Web Assembly to complete the repetitions in milliseconds. Including instantiating the files.</span>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +81,7 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_best_time">0</span>
-                                        <span class="tooltiptext">The quickest time it took to execute a single batch.</span>
+                                        <span class="tooltiptext">The quickest execution time of a single cycle in milliseconds.</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,10 +96,11 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_mean">0</span>
-                                        <span class="tooltiptext">The mean of the sample.</span>
+                                        <span class="tooltiptext">The mean value out of all repetitions.</span>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="left-data">
                             <div class="small_vertical_spacer"></div>
@@ -112,7 +114,7 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_sample_time">0</span>
-                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                        <span class="tooltiptext">The time it took to execute the current cycle in milliseconds.</span>
                                     </div>
                                 </div>
                             </div>
@@ -127,11 +129,26 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_worst_time">0</span>
-                                        <span class="tooltiptext">The maximum time it took to execute a single repetition.</span>
+                                        <span class="tooltiptext">The slowest execution time of a single cycle in milliseconds.</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="small_vertical_spacer"></div>
+                            <div class="small_vertical-spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="icon">∑</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_sum">0</span>
+                                        <span class="tooltiptext">The sum of all datapoints.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="small_vertical_spacer"></div>
                             <div class="data_row">
                                 <div class="data_row_left">  
                                     <div class="tooltip">
@@ -142,12 +159,43 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_median">0</span>
-                                        <span class="tooltiptext">The mean of the sample.</span>
+                                        <span class="tooltiptext">The median value out of all repetitions.</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="small_vertical_spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">  
+                                    <div class="tooltip">
+                                        <span class="icon">T</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">  
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_t_score">0</span>
+                                        <span class="tooltiptext">The median value out of all repetitions.</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="left-data">
+                            
+                            <div class="small_vertical-spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="icon">∑²</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="js_sum_squared">0</span>
+                                        <span class="tooltiptext">The sum of all squared datapoints.</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="left-data">
                             <div class="small_vertical_spacer"></div>
                             <div class="data_row">
                                 <div class="data_row_left">
@@ -159,11 +207,11 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_sd">0</span>
-                                        <span class="tooltiptext">The sample standard deviation.</span>
+                                        <span class="tooltiptext">The sample standard deviation out of all repetitions.</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="small_vertical_spacer"></div>
+                            <!-- <div class="small_vertical_spacer"></div>
                             <div class="data_row">
                                 <div class="data_row_left">  
                                     <div class="tooltip">
@@ -174,10 +222,10 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_variance">0</span>
-                                        <span class="tooltiptext">Variance</span>
+                                        <span class="tooltiptext">The sample variance out of all repetitions.</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="small_vertical_spacer"></div>
                             <div class="data_row">
                                 <div class="data_row_left">  
@@ -189,7 +237,7 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="js_t_score">0</span>
-                                        <span class="tooltiptext">The t score.</span>
+                                        <span class="tooltiptext">The T test outcome.</span>
                                     </div>
                                 </div>
                             </div>
@@ -220,14 +268,13 @@
                                 <div class="data_row_left">
                                     <div class="tooltip">
                                         <span class="fa fa-clock"></span>
-                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
                                     </div>
                                 </div>
                                 <div class="data_row_right">
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="wasm_total_time">0</span>
-                                        <span class="tooltiptext">The total time it took wasm to execute the task.</span>
+                                        <span class="tooltiptext">The total time it took Web Assembly to complete the repetitions in milliseconds. Including instantiating the files.</span>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +289,7 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="wasm_best_time">0</span>
-                                        <span class="tooltiptext">The quickest time it took to execute a single repetition.</span>
+                                        <span class="tooltiptext">The quickest execution time of a single cycle in milliseconds.</span>
                                     </div>
                                 </div>
                             </div>
@@ -257,10 +304,11 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="wasm_mean">0</span>
-                                        <span class="tooltiptext">The mean of the sample.</span>
+                                        <span class="tooltiptext">The mean value out of all repetitions.</span>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     <div class="left-data">
                         <div class="small_vertical_spacer"></div>
@@ -274,7 +322,7 @@
                                 <div class="tooltip">
                                     &nbsp;
                                     <span id="wasm_sample_time">0</span>
-                                    <span class="tooltiptext">The time it takes to run through a sample per repitition in milliseconds.</span>
+                                    <span class="tooltiptext">The time it took to execute the current cycle in milliseconds.</span>
                                 </div>
                             </div>
                         </div>
@@ -289,12 +337,26 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="wasm_worst_time">0</span>
-                                        <span class="tooltiptext">The worst time it took to execute a single repetition in milliseconds.</span>
+                                        <span class="tooltiptext">The slowest execution time of a single cycle in milliseconds.</span>
                                     </div>
                                 </div>
                             </div>
                         <div class="small_vertical_spacer"></div>
                         <div class="data_row">
+                            <div class="data_row_left">
+                                <div class="tooltip">
+                                    <span class="icon">∑ </span>
+                                </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_sum">0</span>
+                                    <span class="tooltiptext">The sum of all datapoints.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="data_row">
                             <div class="data_row_left">
                             <div class="tooltip">
                                 <span class="icon">x̃</span>
@@ -304,12 +366,42 @@
                                 <div class="tooltip">
                                     &nbsp;
                                     <span id="wasm_median">0</span>
-                                    <span class="tooltiptext">The median of the results.</span>
+                                    <span class="tooltiptext">The median value out of all repetitions.</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="left-data">
+                        <!-- <div class="small_vertical-spacer"></div>
+                        <div class="data_row">
+                            <div class="data_row_left">
+                                <div class="tooltip">
+                                    <span class="icon">∑ </span>
+                                </div>
+                            </div>
+                            <div class="data_row_right">
+                                <div class="tooltip">
+                                    &nbsp;
+                                    <span id="wasm_sum">0</span>
+                                    <span class="tooltiptext">The sum of all datapoints.</span>
+                                </div>
+                            </div>
+                        </div> -->
+                            <div class="small_vertical-spacer"></div>
+                            <div class="data_row">
+                                <div class="data_row_left">
+                                    <div class="tooltip">
+                                        <span class="icon">∑²</span>
+                                    </div>
+                                </div>
+                                <div class="data_row_right">
+                                    <div class="tooltip">
+                                        &nbsp;
+                                        <span id="wasm_sum_squared">0</span>
+                                        <span class="tooltiptext">The sum of all squared datapoints.</span>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="small_vertical_spacer"></div>
                         <div class="data_row">
                             <div class="data_row_left">
@@ -321,11 +413,11 @@
                                 <div class="tooltip">
                                     &nbsp;
                                     <span id="wasm_sd">0</span>
-                                    <span class="tooltiptext">Sample Standard Deviation. sqrt(sum(xi - mean) / (n - 1))</span>
+                                    <span class="tooltiptext">The sample standard deviation out of all repetitions.</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="small_vertical_spacer"></div>
+                        <!-- <div class="small_vertical_spacer"></div>
                             <div class="data_row">
                                 <div class="data_row_left">
                                     <div class="tooltip">
@@ -336,10 +428,10 @@
                                     <div class="tooltip">
                                         &nbsp;
                                         <span id="wasm_variance">0</span>
-                                        <span class="tooltiptext">The variance. (Sample Standard Deviation squared)</span>
+                                        <span class="tooltiptext">The sample variance out of all repetitions.</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         <div class="small_vertical_spacer"></div>
                         <div class="data_row">
                             <div class="data_row_left">
@@ -351,7 +443,7 @@
                                 <div class="tooltip">
                                     &nbsp;
                                     <span id="wasm_t_score">0</span>
-                                    <span class="tooltiptext">The T score. A score below 0.05 shows that the difference is significant</span>
+                                    <span class="tooltiptext">The T test outcome.</span>
                                 </div>
                             </div>
                         </div>
@@ -386,21 +478,25 @@
         var wasm_worker;
 
         var started = false;
-
         var wasm_started = false;
         var js_started = false;
+
+        var wasm_done = false;
+        var js_done = false;
 
         var method_js = "";
         var method_wasm = "";
 
         var methods_enum_js = {
             fibonacci: "fibonacci.js",
-            triangular_number: "triangular_number.js"
+            triangular_number: "triangular_number.js",
+            prime: "prime.js"
         }
 
         var methods_enum_wasm = {
             fibonacci: "load_wasm_fibonacci.js",
-            triangular_number: "load_wasm_triangular_number.js"
+            triangular_number: "load_wasm_triangular_number.js",
+            prime: "load_wasm_prime.js"
         }
 
         // menu data
@@ -416,10 +512,12 @@
         const js_best_time_element = document.getElementById('js_best_time');
         const js_worst_time_element = document.getElementById('js_worst_time');
         const js_mean_element = document.getElementById('js_mean');
-        const js_median_element = document.getElementById('js_median');
+        // const js_median_element = document.getElementById('js_median');
         const js_sd_element = document.getElementById('js_sd');
-        const js_variance_element = document.getElementById('js_variance');
+        // const js_variance_element = document.getElementById('js_variance');
         const js_t_score = document.getElementById('js_t_score');
+        const js_sum_element = document.getElementById('js_sum');
+        const js_sum_squared_element = document.getElementById('js_sum_squared')
         const js_info_element = document.getElementById('js_info')
 
         // wasm: info, data
@@ -428,11 +526,14 @@
         const wasm_best_time_element = document.getElementById('wasm_best_time');
         const wasm_worst_time_element = document.getElementById('wasm_worst_time');
         const wasm_mean_element = document.getElementById('wasm_mean');
-        const wasm_median_element = document.getElementById('wasm_median');
+        // const wasm_median_element = document.getElementById('wasm_median');
         const wasm_sd_element = document.getElementById('wasm_sd');
-        const wasm_variance_element = document.getElementById('wasm_variance');
+        // const wasm_variance_element = document.getElementById('wasm_variance');
         const wasm_t_score = document.getElementById('wasm_t_score');
+        const wasm_sum_element = document.getElementById('wasm_sum');
+        const wasm_sum_squared_element = document.getElementById('wasm_sum_squared')
         const wasm_info_element = document.getElementById('wasm_info');
+
         
         onMethodSwitch = () => {
             switch(chosen_method.value){
@@ -443,7 +544,13 @@
                 case 'triangular_number': 
                     method_js = methods_enum_js.triangular_number;
                     method_wasm = methods_enum_wasm.triangular_number;
-                break;
+                    // change params of other classes
+                    break;
+                case 'prime': 
+                    method_js = methods_enum_js.prime;
+                    method_wasm = methods_enum_wasm.prime;
+                    // change params of other classes
+                    break;
             }
             console.log('switched to:', method_js, " / ", method_wasm);
         }
@@ -458,34 +565,41 @@
         update_cycle_slider = () => {
             cycle_size_text.innerHTML = cycle_size.value;
         }
+
         reset = () => {
             resetChart();
         }
 
         start_both = () => {
             if(!started){
-                data_element = document.getElementById('js_data');
+                menu_start.innerHTML = "RESET";
+                started = true;
+                //data_element = document.getElementById('js_data');
                 js_start(); 
                 wasm_start();
                
             } else{
+                menu_start.innerHTML = "START";
+                started = false;
                 js_worker.terminate();
                 wasm_worker.terminate();
                 reset();
             }
-            started = started ? false : true; // toggle started
         }
 
         js_timer_start = () => {
             js_start_time = Date.now();
+
             var js_timer_interval = setInterval(() => {
                 if(!wasm_started){clearInterval(js_timer_interval)}
+
                 current_js_time = Date.now() - js_start_time;
                 js_total_time_element.innerHTML = current_js_time;
             }, 100);
         }
 
         js_start = () => {
+            if(method_js == "select"){return;}
             js_started = true;
             js_timer_start();
 
@@ -494,38 +608,52 @@
             js_worker = new Worker('./javascript_functions/' + method_js);
             js_worker.postMessage(d);
             js_worker.onmessage = (event) => {
-             
+
+                var js_time = event.data.time;
+                js_sample_time_element.innerHTML = js_time;
+                js_info_element.innerHTML = event.data.output;
+                updateJSChart(event.data.cycle, js_time);
+
                 if(event.data.done){
                     js_started = false;
                     js_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;
-                    js_worst_time_element.innerHTML = Math.max.apply(null, myChart.config.data.datasets[0].data);
+                    js_worst_time_element.innerHTML = Math.round(Math.max.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;
                     
                     var js_mean = Math.round(sf_mean(myChart.config.data.datasets[0].data) * 100) / 100;
                     var js_variance = Math.round(sf_variance(myChart.config.data.datasets[0].data, js_mean) * 100000) / 100000;
                     
                     js_mean_element.innerHTML = js_mean; // seperate devisions based on function. / 100 = original value; / 1000 = micro seconds to miliseconds conversion
-                    js_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[0].data) * 100) / 100;
+                    // js_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[0].data) * 100) / 100;
                     js_sd_element.innerHTML =  Math.round(Math.sqrt(js_variance) * 100000) / 100000// round on 2 numbers behind comma
-                    js_variance_element.innerHTML = js_variance;
+                    // js_variance_element.innerHTML = js_variance;
+                    var js_sum = 0;
+                    var js_sum_squared = 0;
+                    myChart.config.data.datasets[0].data.forEach(element => {
+                        js_sum += element;
+                        js_sum_squared += element * element;
+                    })
+                    js_sum_element.innerHTML = js_sum; 
+                    js_sum_squared_element.innerHTML = js_sum_squared;
+                    calculateTScore();
                     js_worker.terminate();
                 }
 
-                var js_time = event.data.time;
-                js_sample_time_element.innerHTML = js_time;
-                js_info_element.innerHTML = event.data.output;
-                updateJSChart(event.data.cycle, js_time)
+      
             } 
         }
         wasm_timer_start = () => {
             wasm_start_time = Date.now();
+
             var wasm_timer_interval = setInterval(() => {
                 if(!wasm_started){clearInterval(wasm_timer_interval)}
+
                 current_wasm_time = Date.now() - wasm_start_time;
                 wasm_total_time_element.innerHTML = current_wasm_time;
             }, 100);
         }
         
         wasm_start = () => {
+            if(method_wasm == "select"){return;}
             wasm_started = true;
             wasm_timer_start();
 
@@ -534,33 +662,83 @@
             wasm_worker = new Worker('./wasm_functions/' + method_wasm);
             wasm_worker.postMessage(d);
             wasm_worker.onmessage = (event) => {  
-               
+
+                var wasm_time = event.data.time;
+                wasm_sample_time_element.innerHTML = wasm_time;
+                wasm_info_element.innerHTML = event.data.output;
+                updateWasmChart(event.data.cycle, wasm_time);
+
                 if(event.data.done){
                     wasm_started = false;
-                    wasm_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[1].data) * 100) / 100;
-                    wasm_worst_time_element.innerHTML = Math.max.apply(null, myChart.config.data.datasets[1].data);
+                    var wasm_min = Math.round(Math.min.apply(null, myChart.config.data.datasets[1].data) * 100) / 100;
+                    var wasm_max = Math.round(Math.max.apply(null, myChart.config.data.datasets[1].data) * 100) / 100;
+                    wasm_best_time_element.innerHTML = wasm_min;
+                    wasm_worst_time_element.innerHTML = wasm_max;
                     
                     var wasm_mean = Math.round(sf_mean(myChart.config.data.datasets[1].data) * 100) / 100;
                     var wasm_variance = Math.round(sf_variance(myChart.config.data.datasets[1].data, wasm_mean) * 100000) / 100000;
                    
                     wasm_mean_element.innerHTML = wasm_mean; // seperate devisions based on function. / 100 = original value; / 1000 = micro seconds to miliseconds conversion
-                    wasm_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[1].data) * 100) / 100;
+                    // wasm_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[1].data) * 100) / 100;
                     wasm_sd_element.innerHTML =  Math.round(Math.sqrt(wasm_variance) * 100000) / 100000// round on 2 numbers behind comma
-                    wasm_variance_element.innerHTML = wasm_variance;
+                    // wasm_variance_element.innerHTML = wasm_variance;
+                    var wasm_sum = 0;
+                    var wasm_sum_squared = 0;
+
+                    myChart.config.data.datasets[1].data.forEach(element => {
+                        wasm_sum += element;
+                        wasm_sum_squared += element * element;
+                    })
+
+                    wasm_sum_element.innerHTML = wasm_sum; 
+                    wasm_sum_squared_element.innerHTML = wasm_sum_squared;
+                    calculateTScore();
                     wasm_worker.terminate();
                 }
 
-                var wasm_time = event.data.time;
-                wasm_sample_time_element.innerHTML = wasm_time;
-                wasm_info_element.innerHTML = event.data.output;
-                updateWasmChart(event.data.cycle, wasm_time)
+              
             }
-
-          
         }
+
+            calculateTScore = () => {
+                var A = myChart.config.data.datasets[0].data;
+                var B = myChart.config.data.datasets[1].data;
+
+                if(A.length == B.length){
+
+                    var meanA = Math.round(sf_mean(myChart.config.data.datasets[0].data) * 100) / 100;
+                    var meanB = Math.round(sf_mean(myChart.config.data.datasets[1].data) * 100) / 100;
+
+                    var sumA = 0;
+                    var sumA2 = 0;
+                    var sumB = 0;
+                    var sumB2 = 0;
+                    
+                    A.forEach(element => {
+                        sumA += element;
+                        sumA2 += element * element;
+                    })
+
+                    B.forEach(element => {
+                        sumB += element;
+                        sumB2 += element * element;
+                    })
+
+
+                    //var t_score = sf_t_test(sumA,sumB, sumA2, sumB2, meanA, meanB, A.length, B.length)
+                    var t_score = Math.round(sf_t_test(sumA2, sumB2, sumA * sumA, sumB * sumB, meanA, meanB, A.length, B.length) * 1000) / 1000
+                    //var t_score = Math.round(sf_t_test(145, 298, 1225, 2500, 3.5, 5, 10, 10) * 1000) / 1000
+                    
+                    
+                    js_t_score.innerHTML = t_score;
+                    wasm_t_score.innerHTML = t_score;    
+                }
+            }
 
           // On init
           onMethodSwitch(); // call on init
+          update_sample_slider();
+          update_cycle_slider();
 
     </script>
         </body>

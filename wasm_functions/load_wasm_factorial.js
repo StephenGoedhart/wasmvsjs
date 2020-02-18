@@ -40,9 +40,10 @@ wasm_factorial_cycle = (func, cycle_size, sample_size) => {
     var wasm_interval = setInterval(() => {
         wasm_data.cycle += 1; // keep track of cycle
         
-        if(wasm_data.cycle > cycle_size){
+        if(wasm_data.cycle > cycle_size - 1){
             clearInterval(wasm_interval);
             wasm_data.done = true;
+            return;
         }
 
         wasm_factorial(func, sample_size); // execute func

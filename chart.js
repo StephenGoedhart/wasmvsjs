@@ -77,4 +77,5 @@ resetChart = () => {
     myChart.data.labels = [];
     myChart.config.data.datasets[0].data = [];
     myChart.config.data.datasets[1].data = [];
+    myChart.update();
 }
