@@ -1,3 +1,4 @@
+// Sum elements and devide them by the number of elements.
 sf_mean = (arr) => {
     mean_sum = 0
     arr.forEach(element => {
@@ -6,6 +7,8 @@ sf_mean = (arr) => {
     return mean_sum != 0 ? mean_sum / arr.length : 0;
 }
 
+// Uneven = return the center element.
+// Even = return the 2 center elements, add and devide them by 2. 
 sf_median = (arr) => {
     if(arr.length % 2 == 0){
         var x1 = arr.length / 2 - 1;
@@ -17,15 +20,17 @@ sf_median = (arr) => {
     }
 }
 
+// Measures how far values are seperated. The square root of the variance is the standard deviation.
 sf_variance = (arr, mean) => {
     var sd_sum = 0
     arr.forEach(element => {
         v = (element - mean) // substract mean from every datapoint.
-        sd_sum += v * v; // We don't square v because this is only done to make sure the value is positive. Math.abs does this for us. 
+        sd_sum += v * v; // Square value to be sure the value is positive. 
     });
     return sd_sum != 0 ? sd_sum / (arr.length - 1) : 0
 }
 
+// The t test is a big 
 sf_t_test = (squared_sumA, squared_sumB, sumA_squared, sumB_squared, meanA, meanB, nA, nB) => {
     console.log("Step 1: Calculate the squared sum of A and B: ", squared_sumA, squared_sumB);
     divA = sumA_squared / nA;

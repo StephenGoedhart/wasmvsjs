@@ -591,7 +591,7 @@
             js_start_time = Date.now();
 
             var js_timer_interval = setInterval(() => {
-                if(!wasm_started){clearInterval(js_timer_interval)}
+                if(!js_started){clearInterval(js_timer_interval)}
 
                 current_js_time = Date.now() - js_start_time;
                 js_total_time_element.innerHTML = current_js_time;
@@ -600,6 +600,8 @@
 
         js_start = () => {
             if(method_js == "select"){return;}
+
+            // start timer
             js_started = true;
             js_timer_start();
 
@@ -615,14 +617,14 @@
                 updateJSChart(event.data.cycle, js_time);
 
                 if(event.data.done){
-                    js_started = false;
-                    js_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;
-                    js_worst_time_element.innerHTML = Math.round(Math.max.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;
+                    js_started = false; // stop timer
+                    js_best_time_element.innerHTML = Math.round(Math.min.apply(null, myChart.config.data.datasets[0].data) * 100) / 100;  // multiplication and division is necessary to store 2 digits after decimal
+                    js_worst_time_element.innerHTML = Math.round(Math.max.apply(null, myChart.config.data.datasets[0].data) * 100) / 100; // multiplication and division is necessary to store 2 digits after decimal
                     
-                    var js_mean = Math.round(sf_mean(myChart.config.data.datasets[0].data) * 100) / 100;
-                    var js_variance = Math.round(sf_variance(myChart.config.data.datasets[0].data, js_mean) * 100000) / 100000;
+                    var js_mean = Math.round(sf_mean(myChart.config.data.datasets[0].data) * 100) / 100; // summarize and devide
+                    var js_variance = Math.round(sf_variance(myChart.config.data.datasets[0].data, js_mean) * 100000) / 100000; // the variance is standard deviation squared
                     
-                    js_mean_element.innerHTML = js_mean; // seperate devisions based on function. / 100 = original value; / 1000 = micro seconds to miliseconds conversion
+                    js_mean_element.innerHTML = js_mean; 
                     // js_median_element.innerHTML = Math.round(sf_median(myChart.config.data.datasets[0].data) * 100) / 100;
                     js_sd_element.innerHTML =  Math.round(Math.sqrt(js_variance) * 100000) / 100000// round on 2 numbers behind comma
                     // js_variance_element.innerHTML = js_variance;
